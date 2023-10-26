@@ -41,7 +41,7 @@ VALIDATE $? "Installing NodeJS"
 useradd roboshop &>>$LOGFILE
 
 #write a condition to check directory already exist or not
-mkdir /app &>>$LOGFILE
+#mkdir /app &>>$LOGFILE
 
 curl -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>$LOGFILE
 
@@ -51,7 +51,7 @@ cd /app &>>$LOGFILE
 
 VALIDATE $? "Moving into app directory"
 
-unzip /tmp/user.zip &>>$LOGFILE
+#unzip /tmp/user.zip &>>$LOGFILE
 
 VALIDATE $? "unzipping user"
 
