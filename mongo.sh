@@ -12,7 +12,7 @@ N="\e[0m"
 UserID=$(id -u)
     if [ $UserID -ne 0 ]
     then
-    echo " error execute the file with root access"
+    echo -e "$R error execute the file with root access $N"
     exit 1
     fi
 
