@@ -52,3 +52,14 @@ systemctl enable user &>> $Logfile
 Validate $? "enabling user"
 systemctl start user &>> $Logfile
 Validate $? "starting user"
+cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+
+VALIDATE $? "Copying mongo repo"
+
+yum install mongodb-org-shell -y &>>$LOGFILE
+
+VALIDATE $? "Installing mongo client"
+
+mongo --host mongodb.joindevops.online </app/schema/user.js &>>$LOGFILE
+
+VALIDATE $? "loading user data into mongodb"
