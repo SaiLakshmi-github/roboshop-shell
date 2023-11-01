@@ -33,7 +33,7 @@ systemctl enable mongod &>> $Logfile
 Validate $? " Enabling mongodb"
 systemctl start mongod &>> $Logfile
 Validate $? " Starting mongodb"
-sed -i "s/127.0.0.1/0.0.0.0/" /etc/mongod.conf &>> $Logfile
+sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongod.conf &>> $Logfile
 Validate $? " replacing the conf file" 
 systemctl restart mongod &>> $Logfile
 Validate $? " Restarting mongodb"
