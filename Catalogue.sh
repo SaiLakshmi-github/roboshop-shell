@@ -28,7 +28,7 @@ Validate(){
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>> $Logfile
 Validate $? "install rpm"
 yum install nodejs -y &>> $Logfile
-Validate $? "installing nodjs"
+Validate $? "installing nodejs"
 useradd roboshop &>> $Logfile
 
 Validate $? "adding user roboshop"
@@ -52,3 +52,5 @@ systemctl enable catalogue &>> $Logfile
 Validate $? "enabling catalogue"
 systemctl start catalogue &>> $Logfile
 Validate $? "starting catalogue"
+
+mongo --host mongodb.skilldevops.online </app/schema/catalogue.js
