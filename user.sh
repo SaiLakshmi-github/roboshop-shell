@@ -84,6 +84,6 @@ yum install mongodb-org-shell -y &>>$LOGFILE
 
 VALIDATE $? "Installing mongo client"
 
-mongo --host mongo.skilldevops.online </app/schema/user.js &>>$LOGFILE
+mongo --host mongodb.skilldevops.online </app/schema/user.js &>>$LOGFILE
 
 VALIDATE $? "loading user data into mongodb"

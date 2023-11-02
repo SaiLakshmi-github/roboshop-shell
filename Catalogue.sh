@@ -41,17 +41,17 @@ VALIDATE $? "Installing NodeJS"
 useradd roboshop &>>$LOGFILE
 
 #write a condition to check directory already exist or not
-#mkdir /app &>>$LOGFILE
+mkdir /app &>>$LOGFILE
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
 
 VALIDATE $? "downloading catalogue artifact"
 
-#cd /app &>>$LOGFILE
+cd /app &>>$LOGFILE
 
 VALIDATE $? "Moving into app directory"
 
-#unzip /tmp/catalogue.zip &>>$LOGFILE
+unzip /tmp/catalogue.zip &>>$LOGFILE
 
 VALIDATE $? "unzipping catalogue"
 

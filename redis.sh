@@ -1,39 +1,53 @@
 #!/bin/bash
 
-Date=$(date +%F)
-Script_name=$0
-#implementation of log file
-Logdir=/tmp
-Logfile=$Logdir/$Script_name-$Date.log
+DATE=$(date +%F)
+LOGSDIR=/tmp
+# /home/centos/shellscript-logs/script-name-date.log
+SCRIPT_NAME=$0
+LOGFILE=$LOGSDIR/$0-$DATE.log
+USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
-Y="\e[33m"
 N="\e[0m"
-UserID=$(id -u)
-    if [ $UserID -ne 0 ]
-    then
-    echo -e "$R error execute the file with root access $N"
-    exit 1
-    fi
+Y="\e[33m"
 
-Validate(){
-       if [ $1 -ne 0 ]
+if [ $USERID -ne 0 ];
+then
+    echo -e "$R ERROR:: Please run this script with root access $N"
+    exit 1
+fi
+
+VALIDATE(){
+    if [ $1 -ne 0 ];
     then
-    echo -e "$2... $R  Failure $N"
+        echo -e "$2 ... $R FAILURE $N"
+        exit 1
     else
-    echo -e "$2..  $G Success $N"
-     fi
-    
+        echo -e "$2 ... $G SUCCESS $N"
+    fi
 }
-yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>$Logfile
-Validate $? "installing rpm redis"
-yum module enable redis:remi-6.2 -y &>>$Logfile
-Validate $? "enable redis"
-yum install redis -y &>>$Logfile
-Validate $? "installing redis"
-sed -i 's/127.0.0.1/0.0.0.0/' /etc/redis.conf &>>$Logfile
-Validate $? "replacing config file"
-systemctl enable redis &>>$Logfile
-Validate $? "enabling redis"
-systemctl start redis &>>$Logfile
-Validate $? "starting redis"
+
+
+yum install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>$LOGFILE
+
+VALIDATE $? "Installing Redis repo"
+
+yum module enable redis:remi-6.2 -y &>>$LOGFILE
+
+VALIDATE $? "Enabling Redis 6.2"
+
+yum install redis -y &>>$LOGFILE
+
+VALIDATE $? "Installing Redis 6.2"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf /etc/redis/redis.conf &>>$LOGFILE
+
+VALIDATE $? "Allowing Remote connections to redis"
+
+systemctl enable redis &>>$LOGFILE
+
+VALIDATE $? "Enabling Redis"
+
+systemctl start redis &>>$LOGFILE
+
+VALIDATE $? "Starting Redis"
